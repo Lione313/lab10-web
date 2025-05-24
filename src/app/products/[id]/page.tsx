@@ -18,7 +18,8 @@ export async function generateStaticParams() {
 }
 
 // Usa tipado inline para evitar choque con tipos de Next.js
-export default async function ProductDetail({ params }: { params: { id: string } }) {
+export default async function ProductDetail(props: Promise<{ params: { id: string } }>) {
+  const { params } = await props;
   const res = await fetch(`https://fakestoreapi.com/products/${params.id}`);
   const product: Product = await res.json();
 
@@ -35,3 +36,4 @@ export default async function ProductDetail({ params }: { params: { id: string }
     </div>
   );
 }
+
